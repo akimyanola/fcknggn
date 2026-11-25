@@ -1,0 +1,17 @@
+{
+  "name": "fcknggn",
+  "short_name": "fcknggn",
+  "description": "Трекер цикла и настроения. Все записи хранятся только на твоём телефоне.",
+  "lang": "ru",
+  "start_url": "./index.html#today",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#c2ce86",
+  "theme_color": "#c2ce86",
+  "icons": [
+    {"src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
