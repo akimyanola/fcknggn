@@ -160,6 +160,14 @@ h3{font:700 13px/1.3 var(--body);margin:0}
 .erow .fill{height:100%;border-radius:999px}
 .erow .pct{text-align:right;font-variant-numeric:tabular-nums}
 .empty{font-size:14px;margin:0;font-weight:500}
+.warn{display:flex;align-items:center;gap:12px;justify-content:space-between}
+.warn[hidden]{display:none}
+.warn .t{font-weight:800;font-size:14px}
+.warn .btn{width:auto;padding:10px 16px;flex:none}
+.pfield{display:grid;gap:6px}
+.pfield label{font-size:12px;font-weight:700}
+.pfield input,.pfield textarea{font:inherit;color:var(--ink);background:rgba(255,255,255,.9);border:0;border-radius:14px;padding:10px 12px;width:100%}
+.pfield textarea{min-height:64px;resize:vertical}
 .mlegend{display:flex;gap:10px;flex-wrap:wrap;font-size:11px;font-weight:600}
 .mlegend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px;vertical-align:-1px}
 
@@ -218,6 +226,7 @@ textarea{font:inherit;color:var(--ink);background:rgba(255,255,255,.85);border:0
     <div class="ringwrap" id="ring"></div>
     <div class="dayinfo panel" id="dayinfo" style="background:url(img/hills.webp) center 92%/cover;color:#f8cdd7;text-shadow:none"></div>
     <button class="btn" id="logBtn" type="button" data-t="howAreYou"></button>
+    <div class="panel bg-feathers warn" id="warnCard" hidden></div>
     <div class="panel bg-feathers" id="marks"></div>
       </section>
 
@@ -258,6 +267,14 @@ textarea{font:inherit;color:var(--ink);background:rgba(255,255,255,.85);border:0
       <h2 data-t="forDoctor"></h2>
       <p class="small" style="margin:0;font-weight:500" data-t="forDoctorText"></p>
       <div class="row"><button class="pillbtn" id="copy" type="button" data-t="copy"></button><span class="status" id="copyStatus" role="status"></span></div>
+    </div>
+    <div class="panel bg-feathers" id="partnerPanel">
+      <h2 data-t="partner"></h2>
+      <p class="small" style="margin:0" data-t="partnerText"></p>
+      <div class="pfield"><label for="pPhone" data-t="partnerPhone"></label><input id="pPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+351 912 345 678"></div>
+      <div class="seg" role="group" id="pChannel" aria-label="WhatsApp / SMS"></div>
+      <div class="pfield"><label for="pText" data-t="partnerMsg"></label><textarea id="pText"></textarea></div>
+      <div class="row"><button class="pillbtn" id="pSave" type="button" data-t="partnerSave"></button><span class="status" id="pStatus" role="status"></span></div>
     </div>
     <div class="panel bg-lime">
       <h2 data-t="backup"></h2>
@@ -324,7 +341,7 @@ const STR={
   forDoctor:"Для врача",forDoctorText:"Все записи по дням: день цикла, месячные, настроение, силы, тревога, отметки и заметки.",copy:"Скопировать сводку",copied:"Скопировано",copyFail:"Не получилось скопировать в этом окне",
   tabToday:"Сегодня",tabCal:"Календарь",tabStats:"Статистика",legPeriod:"месячные",legEmo:"эмоции",legPred:"ожидаемые",legPms:"перед месячными",
   noRecord:"Нет записи",tapToAdd:"Нажми, чтобы добавить",addLog:"+ Добавить запись",edit:"Изменить",
-  period:"Месячные",mood:"Настроение",energy:"Силы",anxiety:"Тревога",whatHappened:"Что было",editList:"Добавь, что чувствуешь именно ты",sexArc:"сука, опять",forecast:"Обычно в эти дни цикла",legForecast:"ожидаемые эмоции",forecastNote:"Прогноз по твоим прошлым циклам",sex:"Секс",legOvu:"овуляция",legSex:"секс",doneList:"Готово",newOption:"Новый вариант",add:"Добавить",
+  period:"Месячные",mood:"Настроение",energy:"Силы",anxiety:"Тревога",whatHappened:"Что было",editList:"Добавь, что чувствуешь именно ты",sexArc:"сука, опять",partner:"Любимый",partnerText:"Добавь номер любимого. В тяжёлые дни приложение предложит отправить ему сообщение в одно касание.",partnerPhone:"Номер телефона",partnerMsg:"Текст сообщения",partnerSave:"Сохранить",partnerSaved:"Сохранено",partnerDefault:"Любимый, ближайшие пять дней ты ни в чём не прав.",warnBtn:"Предупредить любимого",warnHint:"Похоже, сегодня тяжёлый день",warnHintFc:"Скоро тяжёлые дни",warnSetup:"Добавить номер любимого",phoneBad:"Проверь номер: нужен с кодом страны, например +351 912 345 678",forecast:"Обычно в эти дни цикла",legForecast:"ожидаемые эмоции",forecastNote:"Прогноз по твоим прошлым циклам",sex:"Секс",legOvu:"овуляция",legSex:"секс",doneList:"Готово",newOption:"Новый вариант",add:"Добавить",
   care:"Ты отметила тёмные мысли. Пожалуйста, не оставайся с ними одна: напиши близкому человеку или позвони на линию психологической поддержки в своей стране — номер можно найти на findahelpline.com. Если страшно прямо сейчас — звони в экстренную службу (112 в Европе).",
   note:"Заметка",notePh:"Что-нибудь своими словами, если хочется",clearDay:"Очистить день",done:"Готово",close:"Закрыть",saving:"Сохраняю…",saved:"Сохранено",cleared:"Запись очищена",saveFail:"Не сохранилось в хранилище, попробуй позже",
   local:"Записи хранятся только в этом браузере.",cloud:"Записи хранятся в твоём личном хранилище, их видишь только ты.",slow:"Хранилище долго не отвечает. Записи пока видны только в этом браузере.",
@@ -340,7 +357,7 @@ const STR={
   forDoctor:"For the doctor",forDoctorText:"Every day logged: cycle day, period, mood, energy, anxiety, tags and notes.",copy:"Copy summary",copied:"Copied",copyFail:"Couldn't copy in this window",
   tabToday:"Today",tabCal:"Calendar",tabStats:"Statistics",legPeriod:"period",legEmo:"feelings",legPred:"expected",legPms:"before period",
   noRecord:"No record",tapToAdd:"Tap to add a log",addLog:"+ Add log",edit:"Edit",
-  period:"Period",mood:"Mood",energy:"Energy",anxiety:"Anxiety",whatHappened:"What happened",editList:"Add what you feel",sexArc:"fucking again..",forecast:"On these cycle days you usually feel",legForecast:"expected feelings",forecastNote:"Based on your past cycles",sex:"Sex",legOvu:"ovulation",legSex:"sex",doneList:"Done",newOption:"New option",add:"Add",
+  period:"Period",mood:"Mood",energy:"Energy",anxiety:"Anxiety",whatHappened:"What happened",editList:"Add what you feel",sexArc:"fucking again..",partner:"Your love",partnerText:"Add your partner's number. On hard days the app will offer to text him in one tap.",partnerPhone:"Phone number",partnerMsg:"Message",partnerSave:"Save",partnerSaved:"Saved",partnerDefault:"Darling, for the next five days you are wrong about everything.",warnBtn:"Warn my love",warnHint:"Looks like a hard day",warnHintFc:"Hard days are coming",warnSetup:"Add your love's number",phoneBad:"Check the number: include the country code, e.g. +351 912 345 678",forecast:"On these cycle days you usually feel",legForecast:"expected feelings",forecastNote:"Based on your past cycles",sex:"Sex",legOvu:"ovulation",legSex:"sex",doneList:"Done",newOption:"New option",add:"Add",
   care:"You logged dark thoughts. Please don't stay alone with them: message someone close, or call a support line in your country — find one at findahelpline.com. If you feel unsafe right now, call your local emergency number.",
   note:"Note",notePh:"Anything in your own words, if you like",clearDay:"Clear day",done:"Done",close:"Close",saving:"Saving…",saved:"Saved",cleared:"Entry cleared",saveFail:"Didn't save to storage, try again later",
   local:"Entries are stored only in this browser.",cloud:"Entries are stored in your private storage; only you can see them.",slow:"Storage is slow to respond. Entries are visible only in this browser for now.",
@@ -406,7 +423,7 @@ const el=(tag,cls,txt)=>{const e=document.createElement(tag);if(cls)e.className=
 
 /* ---------- state ---------- */
 let entries={};
-let settings={custom:[[],[],[]],hidden:[]};
+let settings={custom:[[],[],[]],hidden:[],partner:{phone:"",channel:"whatsapp",text:""}};
 let col=null;
 const deleted=new Set();
 let homeDay=todayKey, calDay=todayKey;
@@ -419,7 +436,8 @@ function mondayOf(k){const d=fromKey(k);return addDays(k,-((d.getDay()+6)%7));}
 /* ---------- storage ---------- */
 const LS="cycle-mood-v1";
 const DATE_RE=/^\d{4}-\d{2}-\d{2}$/;
-function normSettings(x){x=x||{};const c=Array.isArray(x.custom)?x.custom:[];return {custom:[0,1,2].map(i=>Array.isArray(c[i])?c[i].filter(s=>typeof s==="string"):[]),hidden:Array.isArray(x.hidden)?x.hidden.filter(s=>typeof s==="string"):[]};}
+function normSettings(x){x=x||{};const c=Array.isArray(x.custom)?x.custom:[];return {custom:[0,1,2].map(i=>Array.isArray(c[i])?c[i].filter(s=>typeof s==="string"):[]),hidden:Array.isArray(x.hidden)?x.hidden.filter(s=>typeof s==="string"):[],partner:normPartner(x.partner)};}
+function normPartner(p){p=p||{};return {phone:typeof p.phone==="string"?p.phone:"",channel:p.channel==="sms"?"sms":"whatsapp",text:typeof p.text==="string"?p.text:""};}
 function loadLocal(){
   try{const s=localStorage.getItem(LS);if(s){const o=JSON.parse(s)||{};Object.keys(o).forEach(k=>{if(DATE_RE.test(k))entries[k]=o[k];});}}catch(e){}
   try{const s=localStorage.getItem(LS+"-settings");if(s)settings=normSettings(JSON.parse(s));}catch(e){}
@@ -614,8 +632,47 @@ function tilesInto(box){
   return I;
 }
 function renderToday(){
-  const I=info();renderWeek();renderRing(I);renderMarks();
+  const I=info();renderWeek();renderRing(I);renderMarks();renderWarn(I);
 }
+/* ---------- warn your love ---------- */
+const partnerText=()=>settings.partner.text||t("partnerDefault");
+const phoneDigits=p=>(p||"").replace(/[^\d+]/g,"").replace(/(?!^)\+/g,"");
+function hardToday(I){
+  const e=entries[todayKey];
+  if(e&&e.mood&&e.mood<=2)return "today";
+  if(e&&e.tags&&["плакала","злость","раздражение","тревога","апатия","грусть","тёмные мысли"].some(x=>e.tags.includes(x))&&!(e.mood&&e.mood>=4))return "today";
+  for(let i=1;i<=2;i++){const k=addDays(todayKey,i);const f=forecastFor(k,I);if(f&&f.length)return "soon";}
+  return null;
+}
+function warnUrl(){
+  const num=phoneDigits(settings.partner.phone);const txt=encodeURIComponent(partnerText());
+  if(settings.partner.channel==="sms"){const ios=/iPhone|iPad|iPod/.test(navigator.userAgent);return "sms:"+num+(ios?"&":"?")+"body="+txt;}
+  return "https://wa.me/"+num.replace("+","")+"?text="+txt;
+}
+function renderWarn(I){
+  const box=$("warnCard");const why=homeDay===todayKey?hardToday(I):null;
+  box.hidden=!why;box.innerHTML="";if(!why)return;
+  box.appendChild(el("span","t",why==="soon"?t("warnHintFc"):t("warnHint")));
+  const has=phoneDigits(settings.partner.phone).replace("+","").length>=7;
+  const b=el("button","btn",has?t("warnBtn"):t("warnSetup"));b.type="button";
+  b.addEventListener("click",()=>{if(!has){show("stats");setTimeout(()=>{$("partnerPanel").scrollIntoView({behavior:"smooth"});$("pPhone").focus();},50);return;}window.location.href=warnUrl();});
+  box.appendChild(b);
+}
+function renderPartner(){
+  const p=settings.partner;
+  if(document.activeElement!==$("pPhone"))$("pPhone").value=p.phone;
+  if(document.activeElement!==$("pText"))$("pText").value=partnerText();
+  const ch=$("pChannel");ch.innerHTML="";
+  [["whatsapp","WhatsApp"],["sms",lang==="en"?"SMS":"СМС"]].forEach(([v,n])=>{const b=el("button","chip",n);b.type="button";b.setAttribute("aria-pressed",p.channel===v?"true":"false");
+    b.addEventListener("click",()=>{settings.partner.channel=v;renderPartner();});ch.appendChild(b);});
+}
+$("pSave").addEventListener("click",()=>{
+  const ph=$("pPhone").value.trim();const d=phoneDigits(ph).replace("+","");
+  if(ph&&(d.length<7||!phoneDigits(ph).startsWith("+")&&d.length<10)){$("pStatus").textContent=t("phoneBad");return;}
+  const txt=$("pText").value.trim();
+  settings.partner={phone:ph,channel:settings.partner.channel,text:(txt&&txt!==t("partnerDefault"))?txt:""};
+  saveSettings();$("pStatus").textContent=t("partnerSaved");renderToday();
+});
 $("logBtn").addEventListener("click",()=>openSheet(homeDay));
 
 /* ---------- CALENDAR ---------- */
@@ -679,6 +736,7 @@ $("mNext").addEventListener("click",()=>{calMonth.setMonth(calMonth.getMonth()+1
 function plural(n,a,b,c){if(lang==="en")return "";const m10=n%10,m100=n%100;if(m10===1&&m100!==11)return a;if(m10>=2&&m10<=4&&(m100<12||m100>14))return b;return c;}
 function moodCounts(from,to){const c=[0,0,0,0,0];let k=from;while(k<=to){const e=entries[k];if(e&&e.mood)c[e.mood-1]++;k=addDays(k,1);}return c;}
 function renderStats(){
+  renderPartner();
   const I=tilesInto($("statTiles"));
   // history filter
   const hf=$("histFilter");hf.innerHTML="";hf.setAttribute("aria-label",t("history"));
