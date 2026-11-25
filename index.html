@@ -120,8 +120,10 @@ h3{font:700 13px/1.3 var(--body);margin:0}
 .cell .ic{display:flex;gap:2px;align-self:end;justify-content:center}
 .cell .ic img{width:20px;height:20px}
 .cell.emo{background:url(img/fur.webp) center/90px}
+.cell.ovu{background:url(img/egg.webp) center/cover}
 .cell.per{background:url(img/hen.webp) center 35%/cover}
-.cell.per .n,.cell.emo .n,.cell.per .cd,.cell.emo .cd{opacity:1}
+.cell.sex{background:url(img/rooster.webp) center/cover}
+.cell.per .n,.cell.emo .n,.cell.per .cd,.cell.emo .cd,.cell.ovu .n,.cell.ovu .cd,.cell.sex .n,.cell.sex .cd{opacity:1}
 .cell.pred{background:repeating-linear-gradient(135deg,rgba(255,255,255,.25) 0 6px,var(--pink-soft) 6px 9px)}
 .cell.pms:not(.per){background:rgba(236,220,184,.6)}
 .cell.today .n{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:2px}
@@ -290,6 +292,7 @@ textarea{font:inherit;color:var(--ink);background:rgba(255,255,255,.85);border:0
     <div class="field"><span class="lbl" id="moodLbl" data-t="mood"></span><div class="scale" role="group" aria-labelledby="moodLbl" id="mood"></div></div>
     <div class="field"><span class="lbl" id="energyLbl" data-t="energy"></span><div class="scale" role="group" aria-labelledby="energyLbl" id="energy"></div></div>
     <div class="field"><span class="lbl" id="anxLbl" data-t="anxiety"></span><div class="scale" role="group" aria-labelledby="anxLbl" id="anxiety"></div></div>
+    <div class="field"><span class="lbl" id="sexLbl" data-t="sex"></span><div class="seg" role="group" aria-labelledby="sexLbl" id="sex"></div></div>
     <div class="field">
       <div class="row between"><span class="lbl" data-t="whatHappened"></span><button class="chip" id="editTags" type="button"></button></div>
       <div id="tags" style="display:grid;gap:12px"></div>
@@ -318,7 +321,7 @@ const STR={
   forDoctor:"Для врача",forDoctorText:"Все записи по дням: день цикла, месячные, настроение, силы, тревога, отметки и заметки.",copy:"Скопировать сводку",copied:"Скопировано",copyFail:"Не получилось скопировать в этом окне",
   tabToday:"Сегодня",tabCal:"Календарь",tabStats:"Статистика",legPeriod:"месячные",legEmo:"эмоции",legPred:"ожидаемые",legPms:"перед месячными",
   noRecord:"Нет записи",tapToAdd:"Нажми, чтобы добавить",addLog:"+ Добавить запись",edit:"Изменить",
-  period:"Месячные",mood:"Настроение",energy:"Силы",anxiety:"Тревога",whatHappened:"Что было",editList:"Изменить список",doneList:"Готово",newOption:"Новый вариант",add:"Добавить",
+  period:"Месячные",mood:"Настроение",energy:"Силы",anxiety:"Тревога",whatHappened:"Что было",editList:"Добавь, что чувствуешь именно ты",sex:"Секс",legOvu:"овуляция",legSex:"секс",doneList:"Готово",newOption:"Новый вариант",add:"Добавить",
   care:"Ты отметила тёмные мысли. Пожалуйста, не оставайся с ними одна: напиши близкому человеку или позвони на линию психологической поддержки в своей стране — номер можно найти на findahelpline.com. Если страшно прямо сейчас — звони в экстренную службу (112 в Европе).",
   note:"Заметка",notePh:"Что-нибудь своими словами, если хочется",clearDay:"Очистить день",done:"Готово",close:"Закрыть",saving:"Сохраняю…",saved:"Сохранено",cleared:"Запись очищена",saveFail:"Не сохранилось в хранилище, попробуй позже",
   local:"Записи хранятся только в этом браузере.",cloud:"Записи хранятся в твоём личном хранилище, их видишь только ты.",slow:"Хранилище долго не отвечает. Записи пока видны только в этом браузере.",
@@ -334,7 +337,7 @@ const STR={
   forDoctor:"For the doctor",forDoctorText:"Every day logged: cycle day, period, mood, energy, anxiety, tags and notes.",copy:"Copy summary",copied:"Copied",copyFail:"Couldn't copy in this window",
   tabToday:"Today",tabCal:"Calendar",tabStats:"Statistics",legPeriod:"period",legEmo:"feelings",legPred:"expected",legPms:"before period",
   noRecord:"No record",tapToAdd:"Tap to add a log",addLog:"+ Add log",edit:"Edit",
-  period:"Period",mood:"Mood",energy:"Energy",anxiety:"Anxiety",whatHappened:"What happened",editList:"Edit list",doneList:"Done",newOption:"New option",add:"Add",
+  period:"Period",mood:"Mood",energy:"Energy",anxiety:"Anxiety",whatHappened:"What happened",editList:"Add what you feel",sex:"Sex",legOvu:"ovulation",legSex:"sex",doneList:"Done",newOption:"New option",add:"Add",
   care:"You logged dark thoughts. Please don't stay alone with them: message someone close, or call a support line in your country — find one at findahelpline.com. If you feel unsafe right now, call your local emergency number.",
   note:"Note",notePh:"Anything in your own words, if you like",clearDay:"Clear day",done:"Done",close:"Close",saving:"Saving…",saved:"Saved",cleared:"Entry cleared",saveFail:"Didn't save to storage, try again later",
   local:"Entries are stored only in this browser.",cloud:"Entries are stored in your private storage; only you can see them.",slow:"Storage is slow to respond. Entries are visible only in this browser for now.",
@@ -342,6 +345,9 @@ const STR={
   mScale:["very hard","hard","steady","good","bright"],
   groups:["Feelings","Body","Day"],removeOpt:"Remove option",title:"fcknggn",lang:"RU"}
 };
+const SEX_KEYS=["protected","unprotected","withdrawal"];
+const SEX_L={ru:["защищённый","незащищённый","прерванный"],en:["protected","unprotected","withdrawal"]};
+const sexLabel=v=>{const i=SEX_KEYS.indexOf(v);return i<0?"":SEX_L[lang][i];};
 const FLOW_L={ru:["нет","мажущие","слабые","средние","обильные"],en:["none","spotting","light","medium","heavy"]};
 const ENERGY_L={ru:["нет сил","мало","средне","есть","много"],en:["drained","low","medium","good","high"]};
 const ANX_L={ru:["нет","лёгкая","заметная","сильная","очень сильная"],en:["none","mild","noticeable","strong","very strong"]};
@@ -360,8 +366,8 @@ const loc=()=>lang==="en"?"en-GB":"ru-RU";
 
 /* ---------- constants ---------- */
 const TAG_GROUPS=[
-  ["радость","счастье","лёгкость","спокойствие","уверенность","желанная","тревога","грусть","плакала","апатия","пустота","раздражение","злость","стыд","вина","одиночество","хотелось спрятаться","хотелось побыть одной","думала о маме","хороший день","тёмные мысли"],
-  ["нет сил","не хотелось вставать","тяжесть в груди","головная боль","боль внизу живота","болела грудь","вздутие","тянуло на сладкое","плохой аппетит","переедала","бессонница","много спала","плохо спала"],
+  ["радость","счастье","спокойствие","желанная","грусть","тревога","злость","раздражение","апатия","плакала","тёмные мысли"],
+  ["нет сил","боль внизу живота","головная боль","болела грудь","вздутие","бессонница"],
   ["время для себя","прогулка","спорт","встреча с подругами","разговор по душам","ссора","близость","работала над диссертацией","учёба","много дел","алкоголь"]
 ];
 const EMO=[
@@ -435,7 +441,7 @@ function groupsNow(){return TAG_GROUPS.map((l,i)=>l.filter(x=>!settings.hidden.i
 function feelingsOf(e){if(!e||!e.tags)return [];const f=new Set(TAG_GROUPS[0].concat(settings.custom[0]));return e.tags.filter(x=>f.has(x));}
 function hasEmotion(e){return !!(e&&(e.mood||feelingsOf(e).length));}
 function emoFor(e){if(!e||!e.tags||!e.tags.length)return null;let best=null,bs=0;EMO.forEach(x=>{const s=x.tags.filter(y=>e.tags.includes(y)).length;if(s>bs){bs=s;best=x;}});return best;}
-function imgFor(e){const m=emoFor(e);if(m)return m.img;return (e&&e.flow>0)?"hen":"hills";}
+function imgFor(e,k){if(e&&e.sex)return "sex.gif";if(k){const c=cycleAt(k);if(c&&c.phase==="ovu")return "ovulation.gif";}const m=emoFor(e);if(m)return m.img+".webp";return ((e&&e.flow>0)?"hen":"hills")+".webp";}
 
 /* ---------- cycle math ---------- */
 const isPeriod=k=>!!(entries[k]&&entries[k].flow>=2);
@@ -458,6 +464,7 @@ function cycleAt(k,I){
   for(let i=0;i<I.s.length;i++){if(I.s[i]<=k)idx=i;else break;}
   if(idx<0)return null;
   const st=I.s[idx];const L=idx+1<I.s.length?diff(I.s[idx+1],st):I.avg;const cd=diff(k,st)+1;
+  if(idx+1>=I.s.length&&cd>L&&k>todayKey&&k>=I.next){const c2=((cd-1)%L)+1;if(cd>L*4)return null;return {start:addDays(st,cd-c2),cd:c2,L,P:I.avgP,phase:phaseOfDay(c2,L,I.avgP),late:false,predicted:true};}
   if(cd>60)return null;const P=periodLen(st);
   return {start:st,cd,L,P,phase:cd>L?"lut":phaseOfDay(cd,L,P),late:cd>L&&idx+1>=I.s.length};
 }
@@ -484,7 +491,7 @@ function applyStatic(){
   const lg=$("legend");lg.innerHTML="";
   const li=(src,txt)=>{const s=el("span");const i=el("img");i.src=src;i.alt="";s.append(i,document.createTextNode(txt));lg.appendChild(s);};
   const ls=(bg,txt)=>{const s=el("span");const i=el("i");i.style.background=bg;s.append(i,document.createTextNode(txt));lg.appendChild(s);};
-  ls("url(img/hen.webp) center 35%/cover",t("legPeriod"));ls("url(img/fur.webp) center/24px",t("legEmo"));
+  ls("url(img/hen.webp) center 35%/cover",t("legPeriod"));ls("url(img/egg.webp) center/cover",t("legOvu"));ls("url(img/rooster.webp) center/cover",t("legSex"));ls("url(img/fur.webp) center/24px",t("legEmo"));
   ls("repeating-linear-gradient(135deg,#fff 0 3px,#f8d6de 3px 5px)",t("legPred"));ls("#ecdcb8",t("legPms"));
   $("tabbar").setAttribute("aria-label",lang==="en"?"Sections":"Разделы");
   if(storeState)$("storeNote").textContent=t(storeState);
@@ -537,7 +544,7 @@ function renderRing(I){
   for(let i=1;i<=L;i++){const a=(i-0.5)*per;const isC=c&&i===c.cd;
     if(isC)s+='<circle cx="'+(cx+NR*Math.cos(rad(a))).toFixed(1)+'" cy="'+(cy+NR*Math.sin(rad(a))).toFixed(1)+'" r="9.5" fill="#cf7c8c"/>';
     s+='<text x="'+(cx+NR*Math.cos(rad(a))).toFixed(1)+'" y="'+(cy+NR*Math.sin(rad(a))).toFixed(1)+'" text-anchor="middle" dominant-baseline="central" font-size="'+(L>32?8.5:9.5)+'" font-weight="'+(isC?800:600)+'" fill="'+(isC?"#fff":"#2c3d1a")+'" font-family="Onest, sans-serif">'+i+'</text>';}
-  s+='<image href="img/'+imgFor(entries[homeDay])+'.webp" x="'+(cx-IR)+'" y="'+(cy-IR)+'" width="'+(IR*2)+'" height="'+(IR*2)+'" preserveAspectRatio="xMidYMid slice" clip-path="url(#inner)"/>';
+  s+='<image href="img/'+imgFor(entries[homeDay],homeDay)+'" x="'+(cx-IR)+'" y="'+(cy-IR)+'" width="'+(IR*2)+'" height="'+(IR*2)+'" preserveAspectRatio="xMidYMid slice" clip-path="url(#inner)"/>';
   s+='<circle cx="'+cx+'" cy="'+cy+'" r="'+IR+'" fill="none" stroke="#fff" stroke-width="3"/>';
   if(c){const am=(Math.min(c.cd,L)-0.5)*per;const mx=cx+R*Math.cos(rad(am)),my=cy+R*Math.sin(rad(am));
     }
@@ -557,6 +564,7 @@ function chipsFor(e,box){
   if(e.mood)ch.appendChild(el("span","tag",t("mood").toLowerCase()+": "+t("mScale")[e.mood-1]));
   if(e.energy)ch.appendChild(el("span","tag",t("energy").toLowerCase()+": "+ENERGY_L[lang][e.energy-1]));
   if(e.anxiety)ch.appendChild(el("span","tag",t("anxiety").toLowerCase()+": "+ANX_L[lang][e.anxiety-1]));
+  if(e.sex)ch.appendChild(el("span","tag",t("sex").toLowerCase()+": "+sexLabel(e.sex)));
   (e.tags||[]).forEach(x=>ch.appendChild(el("span","tag",tagLabel(x))));
   box.appendChild(ch);
   if(e.note){const p=el("p","glass small",e.note);p.style.margin="0";box.appendChild(p);}
@@ -602,7 +610,9 @@ function renderCalendar(){
     if(pms.has(k))b.classList.add("pms");
     if(k===todayKey)b.classList.add("today");
     if(k===calDay&&inMonth)b.classList.add("sel");
-    if(hasEmotion(e)&&!hasFlow(k))b.classList.add("emo");
+    if(e&&e.sex)b.classList.add("sex");
+    else if(!hasFlow(k)&&c&&c.phase==="ovu")b.classList.add("ovu");
+    else if(hasEmotion(e)&&!hasFlow(k))b.classList.add("emo");
     if(inMonth){
       let lab=fmt(k,{weekday:"long",day:"numeric",month:"long"});if(c)lab+=", "+t("cycleDay").toLowerCase()+" "+c.cd;if(hasFlow(k))lab+=", "+t("legPeriod");if(hasEmotion(e))lab+=", "+t("legEmo");
       b.setAttribute("aria-label",lab);
@@ -693,14 +703,15 @@ $("copy").addEventListener("click",async()=>{
     if(c)parts.push(t("cycleDay").toLowerCase()+" "+c.cd+" ("+phName(c.phase).toLowerCase()+")");
     if(e.flow>0)parts.push(t("period").toLowerCase()+": "+FLOW_L[lang][e.flow]);
     if(e.mood)parts.push(t("mood").toLowerCase()+" "+e.mood+"/5");if(e.energy)parts.push(t("energy").toLowerCase()+" "+e.energy+"/5");if(e.anxiety)parts.push(t("anxiety").toLowerCase()+" "+e.anxiety+"/5");
+    if(e.sex)parts.push(t("sex").toLowerCase()+": "+sexLabel(e.sex));
     if(e.tags&&e.tags.length)parts.push(e.tags.map(tagLabel).join(", "));if(e.note)parts.push("«"+e.note.replace(/\s+/g," ")+"»");
     lines.push(parts.join(" · "));});
   try{await navigator.clipboard.writeText(lines.join("\n"));$("copyStatus").textContent=t("copied");}catch(e){$("copyStatus").textContent=t("copyFail");}
 });
 
 /* ---------- SHEET ---------- */
-function blank(){return {flow:0,mood:null,energy:null,anxiety:null,tags:[],note:""};}
-const isBlank=d=>!d.flow&&!d.mood&&!d.energy&&!d.anxiety&&!(d.tags&&d.tags.length)&&!(d.note&&d.note.trim());
+function blank(){return {flow:0,mood:null,energy:null,anxiety:null,sex:null,tags:[],note:""};}
+const isBlank=d=>!d.sex&&!d.flow&&!d.mood&&!d.energy&&!d.anxiety&&!(d.tags&&d.tags.length)&&!(d.note&&d.note.trim());
 function status(x){$("status").textContent=x;}
 function loadDraft(){const e=entries[sheetDay];draft=e?JSON.parse(JSON.stringify(e)):blank();if(!draft.tags)draft.tags=[];dirty=false;renderSheet();}
 let lastFocus=null;
@@ -721,7 +732,7 @@ function renderSheet(){
   const c=cycleAt(sheetDay);
   $("shTitle").textContent=fmt(sheetDay,{weekday:"long",day:"numeric",month:"long"});
   $("shSub").textContent=c?(t("cycleDay")+" "+c.cd+" · "+phName(c.phase)):"";
-  $("shImg").src="img/"+imgFor(draft)+".webp";
+  $("shImg").src="img/"+imgFor(draft,sheetDay);
   const f=$("flow");f.innerHTML="";
   FLOW_L[lang].forEach((label,v)=>{const b=el("button","chip period",label);b.type="button";b.setAttribute("aria-pressed",(draft.flow||0)===v?"true":"false");
     b.addEventListener("click",()=>{draft.flow=(draft.flow===v&&v!==0)?0:v;dirty=true;commit();});f.appendChild(b);});
@@ -731,7 +742,10 @@ function renderSheet(){
   const tg=$("tags");tg.innerHTML="";
   $("editTags").textContent=editTags?t("doneList"):t("editList");
   $("editTags").setAttribute("aria-pressed",editTags?"true":"false");
-  groupsNow().forEach((list,gi)=>{
+  const sx=$("sex");sx.innerHTML="";
+  SEX_KEYS.forEach(v=>{const b=el("button","chip period",sexLabel(v));b.type="button";b.setAttribute("aria-pressed",draft.sex===v?"true":"false");
+    b.addEventListener("click",()=>{draft.sex=draft.sex===v?null:v;dirty=true;commit();});sx.appendChild(b);});
+  groupsNow().slice(0,2).forEach((list,gi)=>{
     const wrap=el("div");wrap.style.cssText="display:grid;gap:6px";
     const h=el("h3",null,t("groups")[gi]);h.id="tg"+gi;
     const seg=el("div","seg");seg.setAttribute("role","group");seg.setAttribute("aria-labelledby","tg"+gi);
