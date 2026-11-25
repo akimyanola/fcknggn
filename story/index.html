@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>fcknggn — история</title>
+<link rel="icon" href="img/badge.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+/* Layout: a long-read story in one column on knit fur: a cream "page" with big chapter openers, two feature chapters set on feathers and hills, photo strips, one app mock-up of the warn card */
+:root{
+  --ink:#2c3d1a;
+  --moss:#4e6232;
+  --lime:#c3d08a;
+  --pink:#e9a9b7;
+  --pink-deep:#cf7c8c;
+  --cream:#fffaf5;
+  --font:"Onest","Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme: light;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font:18px/1.6 var(--font);color:var(--ink);background:#c2ce86 url(img/fur-orig.webp) center/640px repeat;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.wrap{max-width:780px;margin:0 auto;padding:22px 14px 48px;display:grid;gap:16px}
+.top{display:flex;justify-content:flex-end}
+.lang{border:0;border-radius:999px;padding:7px 14px;font:700 13px var(--font);letter-spacing:.06em;background:#fff;color:var(--ink);cursor:pointer;box-shadow:0 3px 10px rgba(30,45,15,.2)}
+.lang:focus-visible,a:focus-visible{outline:3px solid var(--pink-deep);outline-offset:2px}
+section{border-radius:30px;overflow:hidden;position:relative;box-shadow:0 10px 30px rgba(30,45,15,.22);break-inside:avoid}
+.page{background:var(--cream);padding:34px 34px}
+.page p{max-width:60ch;margin:0 0 14px}
+.page p:last-child{margin-bottom:0}
+h1,h2,h3{margin:0}
+h1{font-weight:800;font-size:48px;line-height:1;letter-spacing:-.02em}
+h2{font-weight:800;font-size:30px;line-height:1.12;text-wrap:balance}
+.sub{font-size:22px;line-height:1.3;font-weight:700;color:var(--pink-deep);margin-top:12px;text-wrap:balance;max-width:26ch}
+.kicker{font-weight:800;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--pink-deep);margin-bottom:8px}
+/* hero */
+.hero{display:grid;grid-template-columns:1fr 200px;gap:24px;align-items:center}
+.hero img{width:200px;height:200px;border-radius:36px;box-shadow:0 8px 22px rgba(30,45,15,.25);transform:rotate(3deg)}
+@media (max-width:600px){.hero{grid-template-columns:1fr}.hero img{width:150px;height:150px}h1{font-size:40px}h2{font-size:26px}.page{padding:26px 22px}}
+/* photo strip */
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:0;box-shadow:0 10px 30px rgba(30,45,15,.22)}
+.strip img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block}
+.cap{background:var(--ink);color:#f8cdd7;font-weight:700;font-size:15px;padding:10px 18px}
+/* chapter opener */
+.opener{padding:36px 34px;color:#fff;background-size:cover;background-position:center;min-height:220px;display:grid;align-content:end;gap:6px}
+.opener .num{font-weight:800;font-size:15px;letter-spacing:.1em;text-transform:uppercase;background:#fff;color:var(--pink-deep);justify-self:start;padding:4px 12px;border-radius:999px}
+.opener h2{font-size:38px;color:#fff;text-shadow:0 2px 14px rgba(40,20,30,.5);max-width:16ch}
+.opener.dark h2{color:var(--ink);text-shadow:none}
+.feathers{background-image:url(img/feathers.webp)}
+.hills{background-image:url(img/hills.webp);background-position:center 0%}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 16px}
+.chip{background:var(--moss);color:#fff;border-radius:999px;padding:8px 14px;font-weight:700;font-size:15px}
+.chip.w{background:#f2eee6;color:var(--ink)}
+.pull{font-weight:800;font-size:28px;line-height:1.2;color:var(--pink-deep);margin:18px 0;max-width:22ch;text-wrap:balance}
+/* mock of the app */
+.mock{display:grid;gap:10px;background:url(img/fur-orig.webp) center/360px;border-radius:24px;padding:18px;margin:6px 0 18px}
+.mock .card{background:url(img/feathers.webp) center/cover;border-radius:18px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;box-shadow:0 4px 12px rgba(30,45,15,.2)}
+.mock .card b{font-size:14px;font-weight:800}
+.mock .card span{background:var(--pink);color:#fff;font-weight:800;font-size:14px;padding:9px 14px;border-radius:999px;white-space:nowrap}
+.mock .wa{justify-self:end;max-width:82%;background:#dcf8c6;border-radius:18px 18px 6px 18px;padding:10px 14px;font-weight:600;font-size:16px;box-shadow:0 4px 12px rgba(30,45,15,.2)}
+.mock .wa small{display:block;text-align:right;font-size:11px;opacity:.55;font-weight:600}
+/* stickers */
+.stickers{display:flex;gap:12px;flex-wrap:wrap;margin:10px 0 0}
+.st{display:grid;gap:4px;justify-items:center;font-size:13px;font-weight:800;width:84px;text-align:center}
+.st i{width:84px;height:84px;border-radius:22px;background-size:cover;background-position:center;display:block;box-shadow:0 3px 10px rgba(30,45,15,.18)}
+/* end */
+.end{background:var(--pink);color:#fff;padding:34px}
+.end h2{color:#fff}
+.end .url{display:inline-block;margin:14px 0 18px;background:#fff;color:var(--pink-deep);font-weight:800;font-size:20px;padding:12px 20px;border-radius:999px;text-decoration:none}
+.how{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:600px){.how{grid-template-columns:1fr}}
+.how div{background:rgba(255,255,255,.95);color:var(--ink);border-radius:20px;padding:14px 16px}
+.how b{display:block;margin-bottom:4px}
+.how ol{margin:0;padding-left:20px;font-size:16px;line-height:1.45}
+.hug{font-weight:800;font-size:22px;margin-top:18px}
+@media print{.top{display:none}@page{size:A4;margin:8mm}section{box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><button class="lang" id="langBtn" type="button">EN</button></div>
+
+  <section class="page hero" aria-labelledby="h-name">
+    <div>
+      <h1 id="h-name">fcknggn</h1>
+      <p class="sub" data-t="sub"></p>
+    </div>
+    <img src="img/badge.png" alt="" data-alt="altLogo">
+  </section>
+
+  <section class="page" aria-labelledby="h-start">
+    <p class="kicker" data-t="startK"></p>
+    <h2 id="h-start" data-t="startH" style="margin-bottom:16px"></h2>
+    <p data-t="p1"></p><p data-t="p2"></p><p data-t="p3"></p>
+  </section>
+
+  <section class="strip" aria-hidden="true" style="border-radius:30px;overflow:hidden">
+    <div style="display:contents"><img src="img/tears.webp" alt=""><img src="img/hyst.webp" alt=""><img src="img/apathy.webp" alt=""><img src="img/happy.webp" alt=""></div>
+  </section>
+
+  <section aria-labelledby="h-f1">
+    <div class="opener feathers"><span class="num" data-t="f1n"></span><h2 id="h-f1" data-t="f1H"></h2></div>
+    <div class="page">
+      <p data-t="f1p1"></p>
+      <div class="chips"><span class="chip" data-t="c1"></span><span class="chip" data-t="c2"></span><span class="chip w" data-t="c3"></span><span class="chip" data-t="c4"></span><span class="chip w" data-t="c5"></span></div>
+      <p data-t="f1p2"></p>
+      <p class="pull" data-t="f1pull"></p>
+      <p data-t="f1p3"></p>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-f2">
+    <div class="opener hills dark"><span class="num" data-t="f2n"></span><h2 id="h-f2" data-t="f2H"></h2></div>
+    <div class="page">
+      <p data-t="f2p1"></p>
+      <div class="mock" aria-hidden="true">
+        <div class="card"><b data-t="mockHint"></b><span data-t="mockBtn"></span></div>
+        <div class="wa"><span data-t="msg"></span><small>15:27 ✓✓</small></div>
+      </div>
+      <p data-t="f2p2"></p>
+      <p class="pull" data-t="f2pull"></p>
+    </div>
+  </section>
+
+  <section class="page" aria-labelledby="h-more">
+    <p class="kicker" data-t="moreK"></p>
+    <h2 id="h-more" data-t="moreH" style="margin-bottom:14px"></h2>
+    <p data-t="moreP"></p>
+    <div class="stickers">
+      <div class="st"><i style="background-image:url(img/hen.webp)"></i><span data-t="st1"></span></div>
+      <div class="st"><i style="background-image:url(img/egg.webp)"></i><span data-t="st2"></span></div>
+      <div class="st"><i style="background-image:url(img/rooster.webp)"></i><span data-t="st3"></span></div>
+      <div class="st"><i style="background-image:url(img/fur.webp);background-size:90px"></i><span data-t="st4"></span></div>
+      <div class="st"><i style="background:#fff url(img/logo.png) center/80% no-repeat"></i><span data-t="st5"></span></div>
+    </div>
+  </section>
+
+  <section class="page" aria-labelledby="h-priv">
+    <p class="kicker" data-t="privK"></p>
+    <h2 id="h-priv" data-t="privH" style="margin-bottom:14px"></h2>
+    <p data-t="privP"></p>
+  </section>
+
+  <section class="end" aria-labelledby="h-try">
+    <h2 id="h-try" data-t="tryH"></h2>
+    <a class="url" href="https://akimyanola.github.io/fcknggn/">akimyanola.github.io/fcknggn</a>
+    <div class="how">
+      <div><b data-t="iosH"></b><ol><li data-t="i1"></li><li data-t="i2"></li><li data-t="i3"></li></ol></div>
+      <div><b data-t="andH"></b><ol><li data-t="a1"></li><li data-t="a2"></li></ol></div>
+    </div>
+    <p class="hug" data-t="hug"></p>
+  </section>
+</div>
+<script>
+(function(){
+"use strict";
+const T={
+ru:{title:"fcknggn — история",lang:"EN",altLogo:"Логотип fcknggn: розовая курица в очках в белой ромашке",
+ sub:"Факинг эген, или сука, опять...",
+ startK:"",startH:"Когда тебе херово или хочется убивать, и ты не знаешь почему — это ты или гормоны?",
+ p1:"Открой fcknggn и посмотри.",
+ p2:"",
+ p3:"",
+ f1n:"фишка первая",f1H:"Твои эмоции, твоими словами",
+ f1p1:"Во всех трекерах, что я пробовала, настроение — это пять смайликов. Ни один из них не умеет «хочу всех убить, особенно его». Здесь есть основные чувства, а дальше ты дописываешь свои, ровно так, как чувствуешь именно ты:",
+ c1:"реву от рекламы",c2:"хочу всех убить",c3:"я богиня",c4:"ничего не хочу",c5:"обнимите меня",
+ f1p2:"Они становятся кнопками, отмечаешь, что тебе нужно. А приложение потихоньку раскладывает всё по фазам цикла. И однажды ты видишь: каждый месяц, в одни и те же дни.",
+ f1pull:"Ты не сумасшедшая. Это гормоны.",
+ f1p3:"А через пару месяцев оно начинает подсказывать заранее: вот на этих днях у тебя обычно тревога, а на этих — кое-что похуже.",
+ f2n:"фишка вторая",f2H:"Предупреди любимого",
+ f2p1:"В приложение можно добавить номер любимого. Когда день тяжёлый, или по прогнозу скоро будет, появляется кнопка. Одно касание, и ему в WhatsApp или СМС уходит:",
+ mockHint:"Похоже, сегодня тяжёлый день",mockBtn:"Предупредить любимого",msg:"Любимый, ближайшие пять дней ты ни в чём не прав.",
+ f2p2:"Текст можно поменять на свой. И отправляешь всегда ты сама: без тебя ничего никуда не уйдёт. Зато больше не нужно объяснять, почему ты сегодня такая. Он уже знает.",
+ f2pull:"А если повезёт, уже несёт цветы и шоколадку.",
+ moreK:"про кур",moreH:"",
+ moreP:"Месячные в календаре — розовая курица, овуляция — блестящее яйцо, секс — зелёный петух, эмоции — ромашки, а прогноз — курица в ромашке.",
+ st1:"месячные",st2:"овуляция",st3:"секс",st4:"эмоции",st5:"прогноз",
+ privK:"только твоё",privH:"Никто не видит твои записи. Даже я",
+ privP:"Всё хранится только в твоём телефоне: ни регистрации, ни рекламы, ни слежки, и это бесплатно. Это не контрацепция и не врач. Но если перед месячными каждый месяц совсем плохо, покажи статистику врачу. Говорят, это лечится.",
+ tryH:"Попробуй",iosH:"iPhone",i1:"Открой ссылку в Safari",i2:"«Поделиться» → «На экран „Домой“»",i3:"Появится курица в ромашке",andH:"Android",a1:"Открой ссылку в Chrome",a2:"⋮ → «Установить приложение»",
+ hug:"Обнимаю. И береги себя."},
+en:{title:"fcknggn — the story",lang:"RU",altLogo:"fcknggn logo: a pink chicken in sunglasses inside a white daisy",
+ sub:"Fucking again, or here we go again...",
+ startK:"",startH:"When you feel like shit or want to kill someone and don't know why — is it you or your hormones?",
+ p1:"Open fcknggn and see.",
+ p2:"",
+ p3:"",
+ f1n:"feature one",f1H:"Your feelings, in your own words",
+ f1p1:"In every tracker I tried, mood was five emojis. None of them could say “I want to murder everyone, him especially”. Here you get the core feelings, and then you add your own, exactly the way you feel them:",
+ c1:"crying at ads",c2:"want to murder everyone",c3:"I'm a goddess",c4:"want nothing",c5:"hug me",
+ f1p2:"They become buttons, you tap what you need. And the app quietly lays everything out by cycle phase. Then one day you see it: every month, on the same days.",
+ f1pull:"You're not crazy. It's hormones.",
+ f1p3:"After a couple of months it starts warning you ahead: these are usually your anxious days, and these — something worse.",
+ f2n:"feature two",f2H:"Warn your love",
+ f2p1:"You can add your partner's number. When the day is hard, or a hard one is coming, a button appears. One tap, and WhatsApp or SMS sends him:",
+ mockHint:"Looks like a hard day",mockBtn:"Warn my love",msg:"Darling, for the next five days you are wrong about everything.",
+ f2p2:"You can change the text. And you always send it yourself: nothing goes anywhere without you. But you no longer have to explain why you're like this today. He already knows.",
+ f2pull:"And if you're lucky, he's already bringing flowers and chocolate.",
+ moreK:"about the chickens",moreH:"",
+ moreP:"In the calendar your period is a pink hen, ovulation a sparkly egg, sex a green rooster, feelings are daisies and the forecast is a chicken in a daisy.",
+ st1:"period",st2:"ovulation",st3:"sex",st4:"feelings",st5:"forecast",
+ privK:"yours only",privH:"Nobody sees your entries. Not even me",
+ privP:"Everything stays on your phone: no sign-up, no ads, no tracking, and it's free. It's not contraception and not a doctor. But if the days before your period are really bad every month, show your stats to a doctor. They say it's treatable.",
+ tryH:"Try it",iosH:"iPhone",i1:"Open the link in Safari",i2:"Share → “Add to Home Screen”",i3:"The chicken in a daisy appears",andH:"Android",a1:"Open the link in Chrome",a2:"⋮ → “Install app”",
+ hug:"Hugs. And take care of yourself."}
+};
+let lang=location.hash==="#en"?"en":"ru";
+function render(){
+  const s=T[lang];document.documentElement.lang=lang;document.title=s.title;
+  document.querySelectorAll("[data-t]").forEach(n=>{n.textContent=s[n.dataset.t];n.hidden=!s[n.dataset.t];});
+  document.querySelectorAll("[data-alt]").forEach(n=>{n.alt=s[n.dataset.alt];});
+  const b=document.getElementById("langBtn");b.textContent=s.lang;b.setAttribute("aria-label",lang==="ru"?"Switch to English":"Переключить на русский");
+}
+document.getElementById("langBtn").addEventListener("click",()=>{lang=lang==="ru"?"en":"ru";try{history.replaceState(null,"",lang==="en"?"#en":"#ru");}catch(e){}render();});
+window.addEventListener("hashchange",()=>{lang=location.hash==="#en"?"en":"ru";render();});
+render();
+})();
+</script>
+</body>
+</html>

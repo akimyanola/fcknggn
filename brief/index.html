@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>fcknggn — бриф</title>
+<link rel="icon" href="img/badge.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+/* Layout: one 760px column of photo-filled panels in the app's own textures (knit fur, lime felt, feathers, hills), pink accents */
+:root{
+  --ink:#2c3d1a;
+  --moss:#4e6232;
+  --lime:#c3d08a;
+  --pink:#e9a9b7;
+  --pink-deep:#cf7c8c;
+  --cream:#fbf3ee;
+  --font:"Onest","Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme: light;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font:17px/1.55 var(--font);color:var(--ink);background:#c2ce86 url(img/fur-orig.webp) center/700px repeat;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.page{max-width:760px;margin:0 auto;padding:28px 16px 48px;display:grid;gap:18px}
+.panel{border-radius:28px;padding:30px 28px;position:relative;overflow:hidden;background-size:cover;background-position:center;box-shadow:0 10px 30px rgba(30,45,15,.22);break-inside:avoid}
+.lime{background-image:url(img/lime.webp);background-size:cover}
+.feathers{background-image:url(img/feathers.webp)}
+.hills{background-image:url(img/hills.webp);background-position:center 0%}
+.pinkbg{background:var(--pink)}
+.cream{background:var(--cream)}
+h1,h2,h3,p{margin:0}
+h1{font-weight:800;font-size:52px;line-height:1;letter-spacing:-.02em}
+h2{font-weight:800;font-size:26px;line-height:1.15;text-wrap:balance}
+h3{font-weight:800;font-size:17px;line-height:1.25}
+.kicker{font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--pink-deep)}
+.stack{display:grid;gap:12px}
+.lead{font-size:20px;line-height:1.45;font-weight:500;max-width:34ch}
+.muted{opacity:.8}
+.topbar{display:flex;justify-content:flex-end}
+.lang{border:0;border-radius:999px;padding:7px 14px;font:700 13px var(--font);letter-spacing:.06em;background:#fff;color:var(--ink);cursor:pointer;box-shadow:0 3px 10px rgba(30,45,15,.2)}
+.lang:focus-visible,.cta:focus-visible{outline:3px solid var(--pink-deep);outline-offset:2px}
+/* hero */
+.hero{display:grid;grid-template-columns:180px 1fr;gap:26px;align-items:center;background:var(--cream)}
+.hero img{width:180px;height:180px;border-radius:32px;display:block;box-shadow:0 8px 20px rgba(30,45,15,.25)}
+.hero .tag{font-size:24px;line-height:1.25;font-weight:800;color:var(--pink-deep);margin-top:10px;text-wrap:balance}
+.cta{display:inline-block;margin-top:16px;background:var(--pink-deep);color:#fff;text-decoration:none;font-weight:800;padding:13px 22px;border-radius:999px;box-shadow:0 6px 16px rgba(160,70,90,.3)}
+@media (max-width:560px){.hero{grid-template-columns:1fr}.hero img{width:140px;height:140px}h1{font-size:42px}}
+/* problem */
+.lines{display:grid;gap:8px;margin-top:6px}
+.lines div{background:rgba(255,255,255,.82);border-radius:16px;padding:10px 14px;font-weight:600}
+/* main feature */
+.quote{font-weight:800;font-size:30px;line-height:1.15;color:#fff;text-shadow:0 2px 12px rgba(60,30,40,.45);max-width:18ch;text-wrap:balance}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:#fff;border-radius:999px;padding:8px 14px;font-weight:700;font-size:15px}
+.chip.on{background:var(--moss);color:#fff}
+.whitebox{background:rgba(255,255,255,.9);border-radius:20px;padding:16px 18px;display:grid;gap:10px}
+/* cards */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:620px){.cards{grid-template-columns:1fr}}
+.card{background:#fff;border-radius:22px;overflow:hidden;display:grid;break-inside:avoid}
+.card img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}
+.card div{padding:14px 16px 16px;display:grid;gap:4px}
+.card p{font-size:15px;line-height:1.45}
+/* calendar legend */
+.marks{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+@media (max-width:620px){.marks{grid-template-columns:repeat(3,1fr)}}
+.mark{display:grid;gap:6px;justify-items:center;text-align:center;font-weight:700;font-size:14px}
+.mark i{width:100%;aspect-ratio:1/1;border-radius:16px;background-size:cover;background-position:center;display:block;box-shadow:0 3px 10px rgba(30,45,15,.15)}
+.mark i.logo{background:#fff url(img/logo.png) center/80% no-repeat}
+/* voice */
+.voice{display:grid;gap:10px;justify-items:start}
+.bubble{background:#fff;border-radius:22px 22px 22px 6px;padding:12px 18px;font-weight:700;font-size:19px;box-shadow:0 4px 12px rgba(30,45,15,.18)}
+.bubble.pink{background:var(--pink);color:#fff}
+.bubble.dark{background:var(--ink);color:#f8cdd7}
+/* slogans */
+.slogans{display:grid;gap:10px}
+.slogans p{font-weight:800;font-size:22px;line-height:1.25;color:#fff;text-wrap:balance}
+/* privacy */
+.ticks{display:grid;gap:8px;padding:0;margin:0;list-style:none}
+.ticks li{padding-left:30px;position:relative;font-weight:600}
+.ticks li::before{content:"";position:absolute;left:0;top:3px;width:20px;height:20px;border-radius:50%;background:url(img/logo.png) center/cover}
+.foot{text-align:center;display:grid;gap:8px;justify-items:center}
+.foot .url{font-weight:800;font-size:20px;color:var(--ink);text-decoration:none;border-bottom:3px solid var(--pink-deep)}
+.small{font-size:14px}
+@media print{
+  body{background:#c2ce86 url(img/fur-orig.webp) center/700px repeat}
+  .topbar{display:none}
+  .page{padding:12px 0}
+  .panel{box-shadow:none}
+  @page{size:A4;margin:10mm}
+}
+</style>
+</head>
+<body>
+<main class="page">
+  <div class="topbar"><button class="lang" id="langBtn" type="button">EN</button></div>
+
+  <section class="panel hero" aria-labelledby="t-name">
+    <img src="img/badge.png" alt="Логотип fcknggn: розовая курица в очках в белой ромашке">
+    <div>
+      <h1 id="t-name">fcknggn</h1>
+      <p class="tag" data-t="tagline"></p>
+      <a class="cta" href="https://akimyanola.github.io/fcknggn/" data-t="cta"></a>
+    </div>
+  </section>
+
+  <section class="panel lime stack" aria-labelledby="t-know">
+    <p class="kicker" data-t="knowK"></p>
+    <h2 id="t-know" data-t="knowH"></h2>
+    <p data-t="knowP"></p>
+    <div class="lines"><div data-t="l1"></div><div data-t="l2"></div><div data-t="l3"></div></div>
+  </section>
+
+  <section class="panel feathers stack" aria-labelledby="t-main" style="min-height:360px">
+    <p class="kicker" style="color:#fff" data-t="mainK"></p>
+    <h2 id="t-main" class="quote" data-t="mainH"></h2>
+    <div class="whitebox">
+      <p data-t="mainP"></p>
+      <div class="chips"><span class="chip on" data-t="c1"></span><span class="chip on" data-t="c2"></span><span class="chip" data-t="c3"></span><span class="chip on" data-t="c4"></span><span class="chip" data-t="c5"></span></div>
+      <p class="small muted" data-t="mainNote"></p>
+    </div>
+  </section>
+
+  <section class="panel lime stack" aria-labelledby="t-how">
+    <p class="kicker" data-t="howK"></p>
+    <h2 id="t-how" data-t="howH"></h2>
+    <div class="cards">
+      <article class="card"><img src="img/tears.webp" alt=""><div><h3 data-t="h1"></h3><p data-t="p1"></p></div></article>
+      <article class="card"><img src="img/hyst.webp" alt=""><div><h3 data-t="h2"></h3><p data-t="p2"></p></div></article>
+      <article class="card"><img src="img/happy.webp" alt=""><div><h3 data-t="h3"></h3><p data-t="p3"></p></div></article>
+    </div>
+  </section>
+
+  <section class="panel cream stack" aria-labelledby="t-cal">
+    <p class="kicker" data-t="calK"></p>
+    <h2 id="t-cal" data-t="calH"></h2>
+    <div class="marks">
+      <div class="mark"><i style="background-image:url(img/hen.webp)"></i><span data-t="m1"></span></div>
+      <div class="mark"><i style="background-image:url(img/egg.webp)"></i><span data-t="m2"></span></div>
+      <div class="mark"><i style="background-image:url(img/rooster.webp)"></i><span data-t="m3"></span></div>
+      <div class="mark"><i style="background-image:url(img/fur.webp);background-size:90px"></i><span data-t="m4"></span></div>
+      <div class="mark"><i class="logo"></i><span data-t="m5"></span></div>
+    </div>
+  </section>
+
+  <section class="panel hills stack" aria-labelledby="t-voice" style="min-height:330px">
+    <p class="kicker" style="color:var(--ink)" data-t="voiceK"></p>
+    <h2 id="t-voice" data-t="voiceH"></h2>
+    <div class="voice"><span class="bubble" data-t="v1"></span><span class="bubble pink" data-t="v2"></span><span class="bubble dark" data-t="v3"></span></div>
+  </section>
+
+  <section class="panel pinkbg stack" aria-labelledby="t-slog">
+    <p class="kicker" style="color:#fff" data-t="slogK"></p>
+    <h2 id="t-slog" class="sr" style="position:absolute;left:-9999px" data-t="slogK"></h2>
+    <div class="slogans"><p data-t="s1"></p><p data-t="s2"></p><p data-t="s3"></p><p data-t="s4"></p></div>
+  </section>
+
+  <section class="panel lime stack" aria-labelledby="t-priv">
+    <p class="kicker" data-t="privK"></p>
+    <h2 id="t-priv" data-t="privH"></h2>
+    <ul class="ticks"><li data-t="pr1"></li><li data-t="pr2"></li><li data-t="pr3"></li><li data-t="pr4"></li></ul>
+  </section>
+
+  <section class="panel cream foot" aria-labelledby="t-try">
+    <h2 id="t-try" data-t="tryH"></h2>
+    <a class="url" href="https://akimyanola.github.io/fcknggn/">akimyanola.github.io/fcknggn</a>
+    <p class="small" data-t="tryP"></p>
+  </section>
+</main>
+
+<script>
+(function(){
+"use strict";
+const T={
+ru:{title:"fcknggn — бриф",lang:"EN",alt:"Логотип fcknggn: розовая курица в очках в белой ромашке",
+ tagline:"Это ты сходишь с ума или гормоны тебя сводят с ума? Давай проверим.",
+ cta:"Открыть приложение",
+ knowK:"знакомо?",knowH:"Иногда ты просто перестаёшь себя узнавать",
+ knowP:"Плачешь от рекламы, хочешь всех убить, а через неделю снова всё прекрасно. И непонятно: с тобой что-то не так или это просто цикл.",
+ l1:"«Почему я сорвалась на него из-за ерунды?»",l2:"«Опять эта тоска на пустом месте»",l3:"«Со мной вообще всё нормально?»",
+ mainK:"главная фишка",mainH:"Твои эмоции не влезают в смайлики. Поэтому ты пишешь их сама.",
+ mainP:"В fcknggn есть основные чувства, а дальше ты добавляешь свои, своими словами. Они становятся кнопками, и ты отмечаешь их в пару касаний.",
+ c1:"хочу всех убить",c2:"реву от рекламы",c3:"чувствую себя богиней",c4:"тревога",c5:"ничего не хочу",
+ mainNote:"Кнопка так и называется: «Добавь, что чувствуешь именно ты».",
+ howK:"как это помогает",howH:"Через пару месяцев ты видишь себя со стороны",
+ h1:"Записываешь как есть",p1:"Месячные, настроение, силы, тревога, чувства и пара слов о дне. Минута в день.",
+ h2:"Видишь, что повторяется",p2:"Приложение раскладывает эмоции по фазам цикла. Если тоска каждый месяц приходит в одни и те же дни, это гормоны, а не ты.",
+ h3:"Знаешь заранее",p3:"Когда наберётся статистика, календарь сам подскажет, в какие дни обычно тяжело. Можно подготовиться и не пугаться себя.",
+ calK:"календарь",calH:"Всё видно с одного взгляда",
+ m1:"месячные",m2:"овуляция",m3:"секс",m4:"эмоции",m5:"прогноз чувств",
+ voiceK:"характер",voiceH:"Говорит как лучшая подруга: нежно и без сюсюканья",
+ v1:"Моя хорошая, привет!",v2:"Как ты сегодня, моя радость?",v3:"сука, опять",
+ slogK:"слоганы",s1:"Это ты сходишь с ума или гормоны? Проверь.",s2:"Сука, опять. Теперь хотя бы понятно почему.",s3:"Твои эмоции не влезают в смайлики. Пиши своими словами.",s4:"Ты не сумасшедшая. У тебя лютеиновая фаза.",
+ privK:"только твоё",privH:"Никто не видит твои записи. Даже мы",
+ pr1:"Все записи хранятся только на твоём телефоне",pr2:"Без регистрации, рекламы и слежки, бесплатно",pr3:"Прогноз примерный: это не контрацепция и не замена врачу",pr4:"Если каждый месяц перед месячными очень тяжело, покажи статистику врачу: это лечится",
+ tryH:"Попробуй",tryP:"Открой ссылку на телефоне и добавь приложение на экран «Домой»."},
+en:{title:"fcknggn — brief",lang:"RU",alt:"fcknggn logo: a pink chicken in sunglasses inside a white daisy",
+ tagline:"Are you losing your mind, or are your hormones driving you crazy? Let's find out.",
+ cta:"Open the app",
+ knowK:"sound familiar?",knowH:"Some days you just don't recognise yourself",
+ knowP:"You cry at an ad, you want to murder everyone, and a week later life is great again. And you can't tell whether something is wrong with you or it's just your cycle.",
+ l1:"“Why did I snap at him over nothing?”",l2:"“This sadness again, out of nowhere”",l3:"“Am I even okay?”",
+ mainK:"the big idea",mainH:"Your feelings don't fit into emojis. So you write your own.",
+ mainP:"fcknggn starts with the core feelings, then you add your own, in your own words. They turn into buttons you can tap in a second.",
+ c1:"want to murder everyone",c2:"crying at ads",c3:"feeling like a goddess",c4:"anxiety",c5:"want nothing",
+ mainNote:"The button literally says: “Add what you feel”.",
+ howK:"how it helps",howH:"A couple of months in, you see yourself from the outside",
+ h1:"Log it as it is",p1:"Period, mood, energy, anxiety, feelings and a few words about the day. One minute a day.",
+ h2:"See what repeats",p2:"The app lays your feelings out by cycle phase. If the blues show up on the same days every month, it's hormones, not you.",
+ h3:"Know in advance",p3:"Once there's enough data, the calendar shows which days are usually hard. You can prepare instead of being scared of yourself.",
+ calK:"calendar",calH:"Everything at a glance",
+ m1:"period",m2:"ovulation",m3:"sex",m4:"feelings",m5:"feelings forecast",
+ voiceK:"personality",voiceH:"Talks like your best friend: tender, never syrupy",
+ v1:"Hi, my lovely!",v2:"How are you today, my sweetheart?",v3:"fucking again..",
+ slogK:"taglines",s1:"Is it you, or your hormones? Find out.",s2:"Fucking again. At least now you know why.",s3:"Your feelings don't fit into emojis. Write your own.",s4:"You're not crazy. You're in your luteal phase.",
+ privK:"yours only",privH:"Nobody sees your entries. Not even us",
+ pr1:"Everything stays on your phone",pr2:"No sign-up, no ads, no tracking, free",pr3:"Predictions are estimates: not contraception, not a doctor",pr4:"If the days before your period are really hard every month, show your stats to a doctor: it's treatable",
+ tryH:"Try it",tryP:"Open the link on your phone and add the app to your Home Screen."}
+};
+let lang=location.hash==="#en"?"en":"ru";
+function render(){
+  const s=T[lang];document.documentElement.lang=lang;document.title=s.title;
+  document.querySelectorAll("[data-t]").forEach(n=>{n.textContent=s[n.dataset.t];});
+  document.querySelector(".hero img").alt=s.alt;
+  const b=document.getElementById("langBtn");b.textContent=s.lang;b.setAttribute("aria-label",lang==="ru"?"Switch to English":"Переключить на русский");
+}
+document.getElementById("langBtn").addEventListener("click",()=>{lang=lang==="ru"?"en":"ru";try{history.replaceState(null,"",lang==="en"?"#en":"#ru");}catch(e){}render();});
+window.addEventListener("hashchange",()=>{lang=location.hash==="#en"?"en":"ru";render();});
+render();
+})();
+</script>
+</body>
+</html>
