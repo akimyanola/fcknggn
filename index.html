@@ -333,7 +333,7 @@ textarea{font:inherit;color:var(--ink);background:rgba(255,255,255,.85);border:0
 /* ---------- i18n ---------- */
 const STR={
  ru:{hello:"Моя хорошая, привет!",howAreYou:"Как ты сегодня, моя радость?",prevWeek:"Предыдущая неделя",nextWeek:"Следующая неделя",prevMonth:"Предыдущий месяц",nextMonth:"Следующий месяц",
-  today:"Сегодня",day:"День",cycleDay:"День цикла",noCycle:"Отметь первый день месячных, чтобы увидеть цикл",nextPeriod:"Следующие месячные",expected:"ожидаются",late:"Задерживаются",expectedWas:"ожидались",
+  today:"Сегодня",day:"День",cycleDay:"День цикла",noCycle:"Отметь первый день месячных, чтобы увидеть цикл",nextPeriod:"Следующие месячные",expected:"ожидаются",late:"Задерживаются",lateBy:"задержка",missedHint:"Похоже, последние месячные не отмечены. Отметь их в календаре, и круг пересчитается.",expectedWas:"ожидались",
   marked:"Отмечено",nothing:"Пока ничего не отмечено.",avgPeriod:"средняя длина месячных",avgCycle:"средняя длина цикла",byDefault:"пока по умолчанию",
   statsTile:"Статистика",statsTileText:"месячные и настроение по циклам",myCycles:"Мои циклы",markPeriod:"Отметить месячные",history:"История",all:"Все",fPeriod:"Месячные",fMood:"Настроение",
   ongoing:"идёт",noHistory:"Здесь появятся твои циклы, как только ты отметишь месячные.",avgMood:"ср.",emoByPhase:"Эмоции по фазам",daysWithEmo:"дней с эмоциями",noData:"нет данных",
@@ -349,7 +349,7 @@ const STR={
   mScale:["очень тяжело","тяжело","ровно","хорошо","светло"],
   groups:["Чувства","Тело","День"],removeOpt:"Убрать вариант",title:"fcknggn",lang:"EN"},
  en:{hello:"Hi, my lovely!",howAreYou:"How are you today, my sweetheart?",prevWeek:"Previous week",nextWeek:"Next week",prevMonth:"Previous month",nextMonth:"Next month",
-  today:"Today",day:"Day",cycleDay:"Cycle day",noCycle:"Mark the first day of your period to see your cycle",nextPeriod:"Next period",expected:"expected",late:"Late",expectedWas:"was expected",
+  today:"Today",day:"Day",cycleDay:"Cycle day",noCycle:"Mark the first day of your period to see your cycle",nextPeriod:"Next period",expected:"expected",late:"Late",lateBy:"late by",missedHint:"Looks like your last period isn't logged. Mark it in the calendar and the circle will recalculate.",expectedWas:"was expected",
   marked:"Logged",nothing:"Nothing logged yet.",avgPeriod:"average period",avgCycle:"average cycle",byDefault:"default for now",
   statsTile:"Statistics",statsTileText:"period and mood by cycle",myCycles:"My cycles",markPeriod:"Log period",history:"History",all:"All",fPeriod:"Period",fMood:"Mood",
   ongoing:"ongoing",noHistory:"Your cycles will appear here once you log a period.",avgMood:"avg",emoByPhase:"Feelings by phase",daysWithEmo:"days with feelings",noData:"no data",
@@ -465,13 +465,13 @@ function emoFor(e){if(!e||!e.tags||!e.tags.length)return null;let best=null,bs=0
 function imgFor(e,k){if(e&&e.sex)return "sex.gif";if(k){const c=cycleAt(k);if(c&&c.phase==="ovu")return "ovulation.gif";}const m=emoFor(e);if(m)return m.img+".webp";return ((e&&e.flow>0)?"hen":"hills")+".webp";}
 
 /* ---------- cycle math ---------- */
-const isPeriod=k=>!!(entries[k]&&entries[k].flow>=2);
+const isPeriod=k=>{const e=entries[k];if(!e||!e.flow)return false;if(e.flow>=2)return true;const a=entries[addDays(k,-1)],b=entries[addDays(k,1)];return !!((a&&a.flow>=1)||(b&&b.flow>=1));};
 const hasFlow=k=>!!(entries[k]&&entries[k].flow>=1);
 function starts(){return Object.keys(entries).filter(isPeriod).sort().filter(k=>!isPeriod(addDays(k,-1))&&!isPeriod(addDays(k,-2))&&!isPeriod(addDays(k,-3)));}
 function periodLen(s){let n=1,gap=0;for(let i=1;i<15;i++){if(hasFlow(addDays(s,i))){n=i+1;gap=0;}else if(++gap>1)break;}return n;}
 function info(){
   const s=starts();const lens=[];
-  for(let i=1;i<s.length;i++){const d=diff(s[i],s[i-1]);if(d>=18&&d<=60)lens.push(d);}
+  for(let i=1;i<s.length;i++){const d=diff(s[i],s[i-1]);if(d>=21&&d<=45)lens.push(d);}
   const recent=lens.slice(-6);
   const avg=recent.length?Math.round(recent.reduce((a,b)=>a+b,0)/recent.length):28;
   const pls=s.slice(-6).map(periodLen);
@@ -568,7 +568,7 @@ function arcPath(cx,cy,r,a0,a1){
 }
 function renderRing(I){
   const c=cycleAt(homeDay,I);
-  const L=c?Math.max(c.L,c.cd):I.avg,P=c?c.P:I.avgP,CL=c?c.L:I.avg;
+  const L=c?c.L:I.avg,P=c?c.P:I.avgP,CL=c?c.L:I.avg;
   const cx=180,cy=180,R=160,W=26,IR=122,NR=R-W/2-10;
   const rad=a=>(a-90)*Math.PI/180;
   const per=360/L;const phd=x=>x>CL?"lut":phaseOfDay(x,CL,P);
@@ -586,7 +586,7 @@ function renderRing(I){
     const len=(x.d1-x.d0+1)*per*Math.PI/180*R;const name=phName(x.ph);
     if(len>name.length*6.2+10)s+='<text font-size="10.5" font-weight="700" fill="'+(x.ph==="men"?"#fff":"#2c3d1a")+'" font-family="Onest, sans-serif" dominant-baseline="central"><textPath href="#ph'+i+'" startOffset="50%" text-anchor="middle">'+name+'</textPath></text>';
   });
-  for(let i=1;i<=L;i++){const a=(i-0.5)*per;const isC=c&&i===c.cd;
+  for(let i=1;i<=L;i++){const a=(i-0.5)*per;const isC=c&&i===Math.min(c.cd,L);
     if(isC)s+='<circle cx="'+(cx+NR*Math.cos(rad(a))).toFixed(1)+'" cy="'+(cy+NR*Math.sin(rad(a))).toFixed(1)+'" r="9.5" fill="#cf7c8c"/>';
     s+='<text x="'+(cx+NR*Math.cos(rad(a))).toFixed(1)+'" y="'+(cy+NR*Math.sin(rad(a))).toFixed(1)+'" text-anchor="middle" dominant-baseline="central" font-size="'+(L>32?8.5:9.5)+'" font-weight="'+(isC?800:600)+'" fill="'+(isC?"#fff":"#2c3d1a")+'" font-family="Onest, sans-serif">'+i+'</text>';}
   s+='<image href="img/'+imgFor(entries[homeDay],homeDay)+'" x="'+(cx-IR)+'" y="'+(cy-IR)+'" width="'+(IR*2)+'" height="'+(IR*2)+'" preserveAspectRatio="xMidYMid slice" clip-path="url(#inner)"/>';
@@ -600,7 +600,8 @@ function renderRing(I){
   const di=$("dayinfo");di.innerHTML="";
   const when=homeDay===todayKey?"":fmt(homeDay,{day:"numeric",month:"long"})+" · ";
   if(c){
-    di.appendChild(el("div","l1",when+t("day")+" "+c.cd));
+    di.appendChild(el("div","l1",when+t("day")+" "+c.cd+(c.cd>c.L&&c.late?" · "+t("lateBy")+" "+nd(c.cd-c.L):"")));
+    if(c.late&&c.cd>45)di.appendChild(el("div","l2",t("missedHint")));
   }else di.appendChild(el("div","l2",t("noCycle")));
   if(I.next){const left=diff(I.next,todayKey);
     di.appendChild(el("div","l2",left>=0?(t("nextPeriod")+": "+fmt(I.next,{day:"numeric",month:"long"})+(lang==="en"?" (in "+nd(left)+")":" (через "+nd(left)+")")):(t("late")+" · "+t("expectedWas")+" "+fmt(I.next))));}
